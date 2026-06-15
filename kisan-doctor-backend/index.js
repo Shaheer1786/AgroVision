@@ -282,14 +282,17 @@ app.post(
 
     } catch (err) {
 
-      console.error("Prediction Error:");
-      console.error(err);
+  console.error("========== PREDICTION ERROR ==========");
+  console.error(err.response?.data);
+  console.error(err.message);
+  console.error(err);
+  console.error("=====================================");
 
-      res.status(500).json({
-        error: "Prediction failed"
-      });
+  res.status(500).json({
+    error: err.message
+  });
 
-    }
+}
 
   }
 );

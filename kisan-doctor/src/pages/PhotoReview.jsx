@@ -39,47 +39,55 @@ export default function PhotoReview() {
 
   // 🧠 SEND TO AI BACKEND
   const analyzeImage = async () => {
-    setLoading(true);
+  setLoading(true);
 
-    // Convert base64 to blob
+  try {
     const blob = await (await fetch(fileDataUrl)).blob();
 
     const formData = new FormData();
     formData.append("crop", crop);
     formData.append("image", blob, "plant.jpg");
 
-    try {
-      const res = await fetch(`${API_URL}/analyze`, {
-        method: "POST",
-        body: formData
-      });
+    const res = await fetch(`${API_URL}/predict`, {
+      method: "POST",
+      body: formData
+    });
 
-      const data = await res.json();
+    console.log("STATUS:", res.status);
 
-      setLoading(false);
+    const data = await res.json();
 
-      if (!data.success) {
-        alert("AI analysis failed");
-        return;
-      }
+    console.log("AI RESPONSE:", data);
 
-      // Go to result page with AI data
-      nav("/result", {
-        state: {
-          crop,
-          fileDataUrl,
-          includeLocation,
-          disease: data.disease,
-          confidence: data.confidence,
-          treatment: data.treatment,
-          prevention: data.prevention
-        }
-      });
-    } catch (err) {
-      setLoading(false);
-      alert("Cannot connect to AI server. Is backend running?");
+    setLoading(false);
+
+    if (!res.ok) {
+      alert(data.error || "AI analysis failed");
+      return;
     }
-  };
+
+    nav("/result", {
+      state: {
+        crop,
+        fileDataUrl,
+        includeLocation,
+        disease: data.disease,
+        confidence: data.confidence,
+        treatment_en: data.treatment_en,
+        treatment_ur: data.treatment_ur,
+        prevention_en: data.prevention_en,
+        prevention_ur: data.prevention_ur
+      }
+    });
+
+  } catch (err) {
+    setLoading(false);
+
+    console.error("FULL ERROR:", err);
+
+    alert("ERROR: " + err.message);
+  }
+};
 
   return (
     <div className={styles.page} dir={lang === "ur" ? "rtl" : "ltr"}>
