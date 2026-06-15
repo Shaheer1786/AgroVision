@@ -1,0 +1,178 @@
+.page {
+  min-height: 100vh;
+  background: linear-gradient(160deg, #f1f8f4, #eef4f1);
+  display: flex;
+  flex-direction: column;
+}
+
+/* HEADER */
+.header {
+  display: flex;
+  align-items: center;
+  padding: 14px;
+  background: white;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+
+.back {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.title {
+  flex: 1;
+  text-align: center;
+  font-weight: 800;
+  font-size: 18px;
+}
+
+/* CHAT AREA */
+.container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.messageList {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* MESSAGE ROWS */
+
+.rowUser{
+  display:flex;
+  justify-content:flex-end;
+  align-items:flex-end;
+}
+
+.rowAi{
+  display:flex;
+  justify-content:flex-start;
+  align-items:flex-end;
+}
+/* BUBBLES */
+.bubbleUser {
+  background: #22c55e;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 16px 16px 4px 16px;
+  max-width: 75%;
+  font-size: 14px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.bubbleAi {
+  background: white;
+  color: #0f172a;
+  padding: 10px 14px;
+  border-radius: 16px 16px 16px 4px;
+  max-width: 75%;
+  font-size: 14px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* INPUT BAR */
+.composer {
+  display: flex;
+  gap: 10px;
+  padding: 12px;
+  background: white;
+  border-top: 1px solid #e5e7eb;
+}
+
+.input {
+  flex: 1;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  padding: 10px 14px;
+  font-size: 14px;
+}
+
+.sendBtn {
+  background: #22c55e;
+  border: none;
+  border-radius: 20px;
+  padding: 0 18px;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+}
+
+.sendBtn:disabled {
+  opacity: 0.6;
+}
+
+.welcomeCard{
+  background:#fff;
+  padding:20px;
+  border-radius:16px;
+  text-align:center;
+  margin-bottom:16px;
+  box-shadow:0 2px 10px rgba(0,0,0,.06);
+}
+
+.welcomeIcon{
+  font-size:42px;
+  margin-bottom:10px;
+}
+
+.quickQuestions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-bottom:20px;
+}
+
+.quickQuestions button{
+  border:none;
+  padding:10px 14px;
+  border-radius:999px;
+  background:#e8f5e9;
+  cursor:pointer;
+  font-size:13px;
+}
+
+.quickQuestions button:hover{
+  transform:translateY(-2px);
+}
+
+.avatar{
+  width:40px;
+  height:40px;
+  min-width:40px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:22px;
+
+  border-radius:50%;
+
+  background:#f5f5f5;
+
+  margin:0 8px;
+}
+
+.rowAi .avatar{
+  background:#e8f5e9;
+}
+
+.rowUser .avatar{
+  background:#e3f2fd;
+}
+
+.messageTime{
+  font-size:11px;
+  opacity:.7;
+  margin-top:6px;
+  text-align:right;
+}
+

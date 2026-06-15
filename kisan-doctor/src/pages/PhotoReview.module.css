@@ -1,0 +1,16 @@
+/* PhotoReview.module.css */
+.page { min-height:100vh; background:#F6F7F8; padding:16px; }
+.header { display:flex; align-items:center; margin-bottom:12px; }
+.back { background:transparent; border:none; font-size:18px; cursor:pointer; }
+.title { flex:1; text-align:center; font-weight:700; color:#233237; }
+.container { max-width:420px; margin:0 auto; }
+
+.previewCard { background:#fff; padding:12px; border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,0.04); margin-bottom:12px; }
+.previewBox { width:100%; height:340px; display:flex; align-items:center; justify-content:center; overflow:hidden; border-radius:8px; background:#f7f7f7; }
+.previewImg { max-width:100%; max-height:100%; object-fit:contain; }
+
+.quality { color:#d35400; font-size:13px; margin-top:8px; }
+
+.actions { display:flex; gap:10px; margin-top:14px; }
+.ghost { flex:1; padding:12px; border-radius:12px; border:1px solid #e6e6e6; background:#fff; cursor:pointer; }
+.primary { flex:1; padding:12px; border-radius:12px; background:#1E9A4B; color:#fff; border:none; cursor:pointer; font-weight:700; }

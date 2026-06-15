@@ -1,0 +1,14 @@
+.page {
+  animation: slideIn 0.35s ease forwards;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

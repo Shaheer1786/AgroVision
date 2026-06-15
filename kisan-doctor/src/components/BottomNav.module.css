@@ -1,0 +1,49 @@
+.nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 430px;
+  height: 68px;
+  background: var(--card);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 18px 18px 0 0;
+  box-shadow: 0 -8px 24px rgba(0,0,0,0.12);
+  z-index: 1;           
+  pointer-events: auto;
+}
+
+
+.tab {
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  color: var(--muted);
+  font-size: 11px;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.tab:active {
+  transform: scale(0.92);
+}
+
+.icon {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.active {
+  color: #22c55e;
+}
+
+.active .icon {
+  background: rgba(34,197,94,0.15);
+  padding: 6px;
+  border-radius: 12px;
+}

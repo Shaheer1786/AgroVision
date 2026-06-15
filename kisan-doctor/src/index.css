@@ -1,0 +1,22 @@
+/* src/index.css - base styles (no Tailwind) */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html,body,#root { height: 100%; }
+body {
+  font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: #F6F7F8;
+  color: #233237;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.container { max-width: 420px; margin: 0 auto; padding: 16px; }
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background: #e5e7eb;
+  touch-action: manipulation;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}

@@ -1,0 +1,162 @@
+/* Splash.module.css */
+:root {
+  --green-600: #1e9a4b;
+  --green-700: #188440;
+  --card: #ffffff;
+  --muted: #6b7280;
+  --glass: rgba(255,255,255,0.06);
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0f7a3a 0%, #1ea04b 50%, #28b66a 100%);
+  padding: 24px;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Nastaliq Urdu", "Noto Naskh Arabic", sans-serif;
+}
+
+/* card */
+.card {
+  width: 100%;
+  max-width: 520px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: 0 18px 60px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.03);
+  text-align: center;
+  color: #fff;
+  transform: translateY(8px);
+  animation: cardPop 650ms cubic-bezier(.2,.9,.2,1) both;
+}
+
+/* logo */
+.logoWrap { position: relative; display:inline-block; margin-bottom: 10px; }
+.logo {
+  width: 96px;
+  height: 96px;
+  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 44px;
+  background: rgba(255,255,255,0.08);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+  transform-origin: center;
+  animation: float 4s ease-in-out infinite;
+}
+
+/* subtle decorative wave under logo */
+.wave {
+  position:absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -12px;
+  width: 120px;
+  height: 8px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+  border-radius: 10px;
+  filter: blur(8px);
+  opacity: 0.8;
+}
+
+/* title */
+.title {
+  font-size: 32px;
+  margin: 8px 0 6px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+/* subtitle */
+.subtitle {
+  color: rgba(255,255,255,0.9);
+  font-size: 15px;
+  margin-bottom: 18px;
+  opacity: 0.95;
+}
+
+/* actions */
+.actions { display:flex; gap:12px; justify-content:center; margin: 12px 0; }
+
+.btn {
+  padding: 12px 18px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 15px;
+  transition: transform .12s ease, box-shadow .12s ease;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+}
+
+.btn:focus { outline: 3px solid rgba(255,255,255,0.14); outline-offset: 3px; }
+
+.primary {
+  background: linear-gradient(90deg, var(--green-600), var(--green-700));
+  color: #fff;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+.primary:hover { transform: translateY(-3px) scale(1.01); box-shadow: 0 16px 40px rgba(0,0,0,0.28); }
+.primary:active { transform: translateY(0) scale(.995); }
+
+.ghost {
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.ghost:hover { transform: translateY(-2px); }
+
+/* countdown small indicator */
+.countdown { font-weight:600; opacity:0.86; margin-left:6px; font-size:13px; }
+
+/* language row */
+.langRow {
+  margin-top: 12px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  justify-content:center;
+}
+
+.langLabel { font-size:13px; opacity:0.95; }
+
+.langSelect { display:flex; gap:8px; background: rgba(255,255,255,0.03); padding:6px; border-radius:10px; box-shadow: inset 0 -1px rgba(0,0,0,0.04); }
+
+.langBtn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:700;
+  transition: background .18s ease, transform .12s ease;
+}
+.langBtn:hover { background: rgba(255,255,255,0.04); transform: translateY(-2px); }
+.langActive { background: rgba(255,255,255,0.12); color: #fff; }
+
+/* footer note */
+.footerNote { margin-top: 14px; color: rgba(255,255,255,0.88); font-size:13px; opacity:0.95; }
+
+/* animations */
+@keyframes float {
+  0% { transform: translateY(0) rotate(-1deg); }
+  50% { transform: translateY(-8px) rotate(1deg); }
+  100% { transform: translateY(0) rotate(-1deg); }
+}
+@keyframes cardPop {
+  from { opacity: 0; transform: translateY(24px) scale(.98); }
+  to { opacity: 1; transform: translateY(8px) scale(1); }
+}
+
+/* responsiveness */
+@media (max-width:420px) {
+  .card { padding: 20px; border-radius: 16px; }
+  .title { font-size: 26px; }
+  .logo { width:84px; height:84px; font-size:38px; }
+  .actions { flex-direction: column; gap:10px; }
+}

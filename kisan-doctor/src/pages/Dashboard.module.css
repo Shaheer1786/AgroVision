@@ -1,0 +1,311 @@
+.page {
+  padding: 16px;
+  padding-bottom: 76px;
+  background: linear-gradient(160deg, #f1f8f4 0%, #eef4f1 40%, #eaf3ef 100%);
+  position: relative;
+  z-index: 0;
+
+
+}
+
+/* HEADER */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 14px;
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 900;
+  color: #0f172a;
+}
+
+.subHeader {
+  font-size: 14px;
+  color: #64748b;
+}
+
+/* HERO */
+.hero {
+  background: linear-gradient(135deg, #16a34a, #22c55e, #4ade80);
+  border-radius: 24px;
+  padding: 22px;
+  margin: 18px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  box-shadow: 0 20px 40px rgba(22,163,74,0.45);
+  position: relative;
+z-index: 50;
+  overflow: hidden;
+
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(255,255,255,0.35), transparent 60%);
+}
+
+.heroText h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.heroText p {
+  margin-top: 6px;
+  font-size: 14px;
+  opacity: 0.95;
+}
+
+.heroBtn {
+  background: white;
+  color: #14532d;
+  border: none;
+  border-radius: 16px;
+  padding: 12px 18px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  transition: all 0.15s ease;
+  pointer-events: auto;
+  position: relative;
+  z-index: 100;
+}
+
+.heroBtn:hover {
+  transform: translateY(-2px);
+}
+
+/* STATS */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 18px 0;
+}
+
+.statCard {
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  padding: 14px;
+  text-align: center;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+}
+
+.statNumber {
+  font-size: 20px;
+  font-weight: 900;
+  color: #166534;
+}
+
+.statLabel {
+  font-size: 12px;
+  color: #64748b;
+}
+
+/* SECTION TITLE */
+.sectionTitle {
+  margin: 18px 0 12px;
+  font-size: 13px;
+  font-weight: 800;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+/* ACTION CARD */
+.card {
+  background: white;
+  border-radius: 20px;
+  padding: 22px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.10);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 36px rgba(0,0,0,0.14);
+}
+
+.card span {
+  font-size: 34px;
+}
+
+.card p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+/* RECENT */
+.recentCard {
+  background: white;
+  border-radius: 18px;
+  padding: 14px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+}
+
+.recentCard img {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.recentText {
+  flex: 1;
+}
+
+.recentText h4 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.recentText p {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: #64748b;
+}
+/* TIP CARD */
+.tipCard {
+  background: linear-gradient(135deg, #dcfce7, #f0fdf4);
+  border-radius: 18px;
+  padding: 16px;
+  margin-bottom: 14px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+}
+
+.tipTitle {
+  font-weight: 800;
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: #166534;
+}
+
+.tipText {
+  font-size: 13px;
+  color: #14532d;
+}
+
+/* WEATHER */
+.weatherCard {
+  background: linear-gradient(135deg, #e0f2fe, #f0f9ff);
+  border-radius: 18px;
+  padding: 16px;
+  margin-bottom: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+}
+
+.weatherTemp {
+  font-size: 24px;
+  font-weight: 900;
+  color: #0369a1;
+}
+
+.weatherCity {
+  font-size: 13px;
+  color: #075985;
+}
+
+
+
+.alertCard {
+  background: #fff3cd;
+  border: 1px solid #ffe69c;
+  border-radius: 16px;
+  padding: 16px;
+  margin-top: 15px;
+}
+
+.alertTitle {
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.alertText {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.advisoryCard {
+  background: linear-gradient(
+    135deg,
+    #e8f5e9,
+    #ffffff
+  );
+
+  border-radius: 20px;
+  padding: 20px;
+  margin-top: 18px;
+
+  box-shadow:
+    0 8px 20px rgba(0,0,0,0.08);
+
+  border-left: 5px solid #4caf50;
+}
+
+.advisoryTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1b5e20;
+  margin-bottom: 10px;
+}
+
+.advisoryValue {
+  font-size: 15px;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 10px;
+}
+
+.advisoryAlert {
+  background: #fff3cd;
+  border-radius: 12px;
+  padding: 10px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.advisoryList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.advisoryList li {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+  line-height: 1.5;
+}
+
+.advisoryList li:last-child {
+  border-bottom: none;
+}

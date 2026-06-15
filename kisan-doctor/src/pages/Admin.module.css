@@ -1,0 +1,150 @@
+.page {
+  padding: 20px;
+  background: #f6f8fb;
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.back {
+  border: none;
+  background: white;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.statCard {
+  background: white;
+  padding: 20px;
+  text-align: center;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.08);
+}
+
+.statCard h1 {
+  color: #22c55e;
+  margin: 0;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.08);
+}
+
+.analyticsRow {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 12px;
+  text-align: left;
+}
+
+.table tr {
+  border-bottom: 1px solid #eee;
+}
+
+.clearBtn {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 16px;
+  background: #ef4444;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.logoutBtn{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:16px;
+  background:#ef4444;
+  color:white;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.adminActions{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  margin-top:20px;
+}
+
+.actionBtn{
+  border:none;
+  padding:14px;
+  border-radius:14px;
+  cursor:pointer;
+  font-weight:600;
+}
+
+.logoutBtn{
+  border:none;
+  padding:14px;
+  border-radius:14px;
+  background:#ef4444;
+  color:white;
+  cursor:pointer;
+  font-weight:700;
+}
+
+.adminActions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.actionBtn,
+.logoutBtn {
+  width: 100%;
+}
+
+.userRow{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 0;
+  border-bottom:1px solid #eee;
+}
+
+.statusRow{
+  padding:10px 0;
+  font-weight:500;
+}
+
+.card{
+  border-radius:20px;
+}

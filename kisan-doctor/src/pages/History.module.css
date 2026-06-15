@@ -1,0 +1,124 @@
+.page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f4f9f6, #eef3f0);
+  padding: 16px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.back {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.title {
+  flex: 1;
+  text-align: center;
+  font-weight: 800;
+}
+
+.container {
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+/* Empty state */
+.empty {
+  margin-top: 60px;
+  text-align: center;
+  color: #64748b;
+  font-size: 15px;
+}
+
+/* Clear all button */
+.clearBtn {
+  width: 100%;
+  max-width: 420px;
+  display: block;
+  margin: 0 auto 14px auto;
+  background: linear-gradient(90deg, #dc2626, #ef4444);
+  color: white;
+  border: none;
+  padding: 12px 14px;
+  border-radius: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(239,68,68,0.4);
+}
+
+/* History card */
+.card {
+  position: relative;
+  display: flex;
+  gap: 14px;
+  background: #ffffff;
+  padding: 12px;
+  margin-bottom: 14px;
+  border-radius: 16px;
+  cursor: pointer;
+  box-shadow: 0 10px 26px rgba(0,0,0,0.08);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.12);
+}
+
+.thumb {
+  width: 76px;
+  height: 76px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* Info section */
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+}
+
+.crop {
+  font-size: 12px;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.disease {
+  font-weight: 800;
+  font-size: 16px;
+  color: #991b1b;
+}
+
+.date {
+  font-size: 12px;
+  color: #64748b;
+}
+
+/* Delete button */
+.deleteBtn {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  background: #fee2e2;
+  color: #991b1b;
+  border: none;
+  padding: 6px 8px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.deleteBtn:hover {
+  background: #fecaca;
+}
