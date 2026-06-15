@@ -244,13 +244,13 @@ app.post(
         fs.createReadStream(req.file.path)
       );
 
-      const response = await axios.post(
-        "http://127.0.0.1:5001/predict",
-        formData,
-        {
-          headers: formData.getHeaders()
-        }
-      );
+      const response =await axios.post(
+  "https://agrovision-907m.onrender.com/predict",
+  formData,
+  {
+    headers: formData.getHeaders()
+  }
+);
 
       const prediction = response.data;
 
@@ -646,12 +646,7 @@ app.get("/ai-test", async (req, res) => {
 });
 
 
-const PORT =
-  process.env.PORT || 5000;
 
-  app.get("/", (req, res) => {
-  res.send("Backend Working");
-});
 
 
 
@@ -752,6 +747,8 @@ app.get("/admin/user-count", async (req, res) => {
 
 });
 
-app.listen(5000, "0.0.0.0", () => {
-  console.log("Server running on port 5000");
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Server running on port ${PORT}`);
 });
