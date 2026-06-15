@@ -25,6 +25,8 @@ const openrouter = new OpenAI({
 
 const app = express();
 
+
+
 app.use(cors());
 app.use(express.json());
 
@@ -140,7 +142,11 @@ app.post("/signup", async (req, res) => {
    Login
 ========================== */
 
+
 app.post("/login", async (req, res) => {
+
+    console.log("===== LOGIN HIT =====");
+  console.log("BODY:", req.body);
 
   try {
 
@@ -643,13 +649,10 @@ app.get("/ai-test", async (req, res) => {
 const PORT =
   process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-
-  console.log(
-    `Node server running on port ${PORT}`
-  );
-
+  app.get("/", (req, res) => {
+  res.send("Backend Working");
 });
+
 
 
 app.get("/weather/:city", async (req, res) => {
@@ -747,4 +750,8 @@ app.get("/admin/user-count", async (req, res) => {
 
   }
 
+});
+
+app.listen(5000, "0.0.0.0", () => {
+  console.log("Server running on port 5000");
 });
