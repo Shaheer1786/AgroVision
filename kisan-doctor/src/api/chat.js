@@ -1,5 +1,8 @@
+import { API_URL } from "./config";
+
 export async function sendMessageToAI(message) {
-  const res = await fetch("http://localhost:5000/chat", {
+
+  const res = await fetch(`${API_URL}/chat`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"

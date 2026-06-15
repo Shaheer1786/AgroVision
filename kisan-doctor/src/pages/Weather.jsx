@@ -11,9 +11,9 @@ export default function Weather() {
 
   useEffect(() => {
 
-    fetch(
-      "http://localhost:5000/weather/Karachi"
-    )
+    
+      fetch(`${API_URL}/weather/Karachi`)
+    
       .then(res => res.json())
       .then(data => {
 

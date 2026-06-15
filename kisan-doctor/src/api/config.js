@@ -1,2 +1,2 @@
 export const API_URL =
-  "http://192.168.100.226:5000";
+  "https://agrovision-backend-nls0.onrender.com";

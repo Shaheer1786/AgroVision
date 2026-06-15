@@ -85,7 +85,7 @@ export default function History() {
     try {
 
       await fetch(
-        "http://localhost:5000/history",
+        (`${API_URL}/history`),
         {
           method: "DELETE"
         }

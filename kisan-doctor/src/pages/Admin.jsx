@@ -6,41 +6,60 @@ from "../contexts/LanguageProvider";
 import { API_URL } from "../api/config";
 
 export default function Admin() {
+  const { lang } = useTranslation();
+const nav = useNavigate();
 
     const [users, setUsers] = useState([]);
-    const [totalUsers, setTotalUsers] =
-  useState(0);
-
+    const [farmers, setFarmers] = useState([]);
+    const [admins, setAdmins] = useState([]);
+    const [totalUsers, setTotalUsers] =useState(0);
+    const [history, setHistory] = useState([]);
 useEffect(() => {
-
-  
-  fetch(`${API_URL}/admin/user-count`)
-
-  .then(res => res.json())
-  .then(data =>
-    setTotalUsers(data.totalUsers)
-  );
 
   fetch(`${API_URL}/admin/users`)
     .then(res => res.json())
-    .then(data => setUsers(data));
+    .then(data => {
+
+      setUsers(data);
+
+      setFarmers(
+        data.filter(
+          user => user.role !== "admin"
+        )
+      );
+
+      setAdmins(
+        data.filter(
+          user => user.role === "admin"
+        )
+      );
+
+      setTotalUsers(data.length);
+
+    })
+    .catch(err => {
+      console.error(err);
+    });
 
 }, []);
-    const { lang } = useTranslation();
-  useTranslation();
-  const nav = useNavigate();
 
-  const [history, setHistory] = useState([]);
-
-  useEffect(() => {
+useEffect(() => {
 
   fetch(`${API_URL}/history`)
     .then(res => res.json())
     .then(data => {
-      setHistory(data);
+
+      if (Array.isArray(data)) {
+        setHistory(data);
+      } else {
+        console.error("History is not array:", data);
+        setHistory([]);
+      }
+
     })
     .catch(err => {
       console.error(err);
+      setHistory([]);
     });
 
 }, []);
@@ -178,6 +197,24 @@ useEffect(() => {
         </div>
 
       </div>
+
+      <div className={styles.statCard}>
+  <h1>{farmers.length}</h1>
+  <p>
+    {lang === "ur"
+      ? "کل کسان"
+      : "Total Farmers"}
+  </p>
+</div>
+
+<div className={styles.statCard}>
+  <h1>{admins.length}</h1>
+  <p>
+    {lang === "ur"
+      ? "کل ایڈمن"
+      : "Total Admins"}
+  </p>
+</div>
 
       {/* System Status */}
 
@@ -342,7 +379,7 @@ useEffect(() => {
 
   ) : (
 
-    users.map(user => (
+    farmers.map(user => (
 
       <div
         key={user._id}

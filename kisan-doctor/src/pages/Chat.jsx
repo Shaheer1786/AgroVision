@@ -286,7 +286,7 @@ console.log("MESSAGE:", userMsg.text);
 
       const response =
         await fetch(
-          "http://localhost:5000/chat",
+          `${API_URL}/chat`,
           {
             method: "POST",
 
