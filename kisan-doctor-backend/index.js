@@ -643,6 +643,28 @@ app.get("/admin/user-count", async (req, res) => {
 
 });
 
+app.get("/admin/users", async (req, res) => {
+
+  try {
+
+    const users = await User.find(
+      {},
+      { password: 0 }
+    );
+
+    res.json(users);
+
+  } catch (err) {
+
+    console.error(err);
+
+    res.status(500).json({
+      error: "Failed to fetch users"
+    });
+
+  }
+
+});
 
 app.post(
   "/predict",
@@ -662,13 +684,14 @@ app.post(
         fs.createReadStream(req.file.path)
       );
 
-      const response = await axios.post(
-        "https://agrovision-907m.onrender.com/predict",
-        formData,
-        {
-          headers: formData.getHeaders()
-        }
-      );
+      await axios.post(
+  "https://agrovision-907m.onrender.com/predict",
+  formData,
+  {
+    headers: formData.getHeaders(),
+    timeout: 120000
+  }
+);
 
       const prediction = response.data;
 
@@ -693,7 +716,10 @@ app.post(
 
       console.log("Saved To MongoDB");
 
-      res.json(prediction);
+res.json({
+  test: "HELLO",
+  ...prediction
+});
 
     } catch (err) {
 
