@@ -684,7 +684,7 @@ app.post(
         fs.createReadStream(req.file.path)
       );
 
-      await axios.post(
+     const response = await axios.post(
   "https://agrovision-907m.onrender.com/predict",
   formData,
   {
@@ -692,6 +692,8 @@ app.post(
     timeout: 120000
   }
 );
+
+const prediction = response.data;
 
       const prediction = response.data;
 
@@ -740,3 +742,8 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+app.get("/", (req, res) => {
+  res.send("Backend Alive");
+});
+
