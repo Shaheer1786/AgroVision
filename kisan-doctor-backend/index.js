@@ -684,7 +684,7 @@ app.post(
         fs.createReadStream(req.file.path)
       );
 
-     const response = await axios.post(
+    const response = await axios.post(
   "https://agrovision-907m.onrender.com/predict",
   formData,
   {
@@ -692,6 +692,8 @@ app.post(
     timeout: 120000
   }
 );
+
+const prediction = response.data;
 
 const prediction = response.data;
 
