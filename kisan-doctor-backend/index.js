@@ -231,74 +231,6 @@ app.post("/login", async (req, res) => {
    Prediction Route
 ========================== */
 
-app.post(
-  "/predict",
-  upload.single("image"),
-  async (req, res) => {
-
-    try {
-
-      console.log("Received Image");
-
-      const formData = new FormData();
-
-      formData.append(
-        "image",
-        fs.createReadStream(req.file.path)
-      );
-
-      const response =await axios.post(
-  "https://agrovision-907m.onrender.com/predict",
-  formData,
-  {
-    headers: formData.getHeaders()
-  }
-);
-
-      const prediction = response.data;
-
-      console.log("===============");
-      console.log("AI RESPONSE");
-      console.log(prediction);
-      console.log("===============");
-      const savedScan =
-        await Scan.create({
-
-          crop:
-            prediction.disease.split("/")[0],
-
-          disease:
-            prediction.disease,
-
-          confidence:
-            prediction.confidence,
-
-          imageName:
-            req.file.filename
-
-        })
-        
-      console.log("Saved To MongoDB");
-      console.log(savedScan);
-
-      res.json(prediction);
-
-    } catch (err) {
-
-  console.error("========== PREDICTION ERROR ==========");
-  console.error(err.response?.data);
-  console.error(err.message);
-  console.error(err);
-  console.error("=====================================");
-
-  res.status(500).json({
-    error: err.message
-  });
-
-}
-
-  }
-);
 /* ==========================
    Get History
 /* ==========================
@@ -685,51 +617,9 @@ app.get("/test-key", (req, res) => {
   });
 });
 
-app.get("/admin/users", async (req, res) => {
 
-  try {
 
-    const users = await User.find(
-      {},
-      {
-        password: 0
-      }
-    );
 
-    res.json(users);
-
-  } catch (err) {
-
-    res.status(500).json({
-      error: "Failed to fetch users"
-    });
-
-  }
-
-});
-
-app.get("/admin/users", async (req, res) => {
-
-  try {
-
-    const users = await User.find(
-      {},
-      {
-        password: 0
-      }
-    );
-
-    res.json(users);
-
-  } catch (err) {
-
-    res.status(500).json({
-      error: "Failed to fetch users"
-    });
-
-  }
-
-});
 
 
 app.get("/admin/user-count", async (req, res) => {
