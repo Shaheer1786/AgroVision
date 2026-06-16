@@ -30,6 +30,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+
+
+
 /* ==========================
    MongoDB Connection
 ========================== */
@@ -749,6 +752,72 @@ app.get("/admin/user-count", async (req, res) => {
   }
 
 });
+
+
+app.post(
+  "/predict",
+  upload.single("image"),
+  async (req, res) => {
+
+    console.log("========== PREDICT HIT ==========");
+    console.log("FILE:", req.file);
+    console.log("BODY:", req.body);
+
+    try {
+
+      const formData = new FormData();
+
+      formData.append(
+        "image",
+        fs.createReadStream(req.file.path)
+      );
+
+      const response = await axios.post(
+        "https://agrovision-907m.onrender.com/predict",
+        formData,
+        {
+          headers: formData.getHeaders()
+        }
+      );
+
+      const prediction = response.data;
+
+      console.log("AI RESPONSE:", prediction);
+
+      const savedScan =
+        await Scan.create({
+
+          crop:
+            prediction.disease.split("/")[0],
+
+          disease:
+            prediction.disease,
+
+          confidence:
+            prediction.confidence,
+
+          imageName:
+            req.file.filename
+
+        });
+
+      console.log("Saved To MongoDB");
+
+      res.json(prediction);
+
+    } catch (err) {
+
+      console.error("Prediction Error:");
+      console.error(err);
+
+      res.status(500).json({
+        error: err.message
+      });
+
+    }
+
+  }
+);
 
 const PORT = process.env.PORT || 5000;
 
