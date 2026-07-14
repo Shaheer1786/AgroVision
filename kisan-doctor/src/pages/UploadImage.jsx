@@ -13,7 +13,7 @@ export default function UploadImage() {
    const { lang } =
     useTranslation();
 
-  const crop = location.state?.crop || "Unknown Crop";
+  const crop = location.state?.crop || disease?.split("/")[0]
 
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
@@ -83,10 +83,10 @@ formData.append("image", file);
       const data =
         await response.json();
 
-      console.log(
-        "AI RESULT:",
-        data
-      );
+     console.log("STATUS:", response.status);
+console.log("AI RESULT:", data);
+
+alert(JSON.stringify(data));
 
       if (!response.ok) {
 
@@ -131,11 +131,11 @@ prevention_ur:
 
     } catch (err) {
 
-      console.error(err);
+  console.error("FULL ERROR:", err);
 
-      alert(
-        "AI analysis failed"
-      );
+  alert(
+    err.message
+  );
 
     } finally {
 

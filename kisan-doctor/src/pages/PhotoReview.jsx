@@ -66,20 +66,22 @@ export default function PhotoReview() {
       return;
     }
 
-    nav("/result", {
-      state: {
-        crop,
-        fileDataUrl,
-        includeLocation,
-        disease: data.disease,
-        confidence: data.confidence,
-        treatment_en: data.treatment_en,
-        treatment_ur: data.treatment_ur,
-        prevention_en: data.prevention_en,
-        prevention_ur: data.prevention_ur
-      }
-    });
+    console.log("GOING TO RESULT PAGE");
+alert("Prediction Success");
 
+   nav("/result", {
+  state: {
+    crop,
+    fileDataUrl,
+    includeLocation,
+    disease: data.disease,
+    confidence: data.confidence,
+    treatment_en: data.treatment_en,
+    treatment_ur: data.treatment_ur,
+    prevention_en: data.prevention_en,
+    prevention_ur: data.prevention_ur
+  }
+});
   } catch (err) {
     setLoading(false);
 

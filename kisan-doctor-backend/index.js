@@ -665,7 +665,6 @@ app.get("/admin/users", async (req, res) => {
   }
 
 });
-
 app.post(
   "/predict",
   upload.single("image"),
@@ -684,46 +683,33 @@ app.post(
         fs.createReadStream(req.file.path)
       );
 
-    const response = await axios.post(
-  "https://agrovision-907m.onrender.com/predict",
-  formData,
-  {
-    headers: formData.getHeaders(),
-    timeout: 120000
-  }
-);
-
-const prediction = response.data;
-
-const prediction = response.data;
+      const response = await axios.post(
+        "http://127.0.0.1:5001/predict",
+        formData,
+        {
+          headers: formData.getHeaders()
+        }
+      );
 
       const prediction = response.data;
 
       console.log("AI RESPONSE:", prediction);
 
-      const savedScan =
-        await Scan.create({
+      const savedScan = await Scan.create({
 
-          crop:
-            prediction.disease.split("/")[0],
+        crop: prediction.disease.split("/")[0],
 
-          disease:
-            prediction.disease,
+        disease: prediction.disease,
 
-          confidence:
-            prediction.confidence,
+        confidence: prediction.confidence,
 
-          imageName:
-            req.file.filename
+        imageName: req.file.filename
 
-        });
+      });
 
       console.log("Saved To MongoDB");
 
-res.json({
-  test: "HELLO",
-  ...prediction
-});
+      res.json(prediction);
 
     } catch (err) {
 
@@ -738,7 +724,6 @@ res.json({
 
   }
 );
-
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, "0.0.0.0", () => {

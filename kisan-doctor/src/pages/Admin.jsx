@@ -16,6 +16,7 @@ const nav = useNavigate();
     const [history, setHistory] = useState([]);
 useEffect(() => {
 
+  console.log(`${API_URL}/admin/users`);
   fetch(`${API_URL}/admin/users`)
     .then(res => res.json())
     .then(data => {

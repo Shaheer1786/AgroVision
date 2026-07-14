@@ -52,26 +52,25 @@ export default function Login() {
 
   try {
 
-    const response = await 
-    fetch(
-      `${API_URL}/login`,
-      {
-        method: "POST",
+    alert(API_URL);
+console.log("API URL:", API_URL);
+   const response = await fetch(
+  `${API_URL}/login`,
+  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      email,
+      password
+    })
+  }
+);
 
-        headers: {
-          "Content-Type": "application/json"
-        },
+const data = await response.json();
 
-        body: JSON.stringify({
-          email,
-          password
-        })
-      }
-    );
-
-    const data =
-      await response.json();
-     console.log("LOGIN RESPONSE:", data);
+console.log("LOGIN RESPONSE:", data);
 
 if (!response.ok) {
   setError(data.error || "Login failed");
