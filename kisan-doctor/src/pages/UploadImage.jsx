@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import styles from "./UploadImage.module.css";
 import { useTranslation } from "../contexts/LanguageProvider";
-import { AI_URL } from "../api/ai";
+import { API_URL } from "../api/ai";
 
 export default function UploadImage() {
   const navigate = useNavigate();
@@ -47,7 +47,8 @@ export default function UploadImage() {
 
     const formData = new FormData();
 
-    formData.append("image", file);
+formData.append("image", file);
+formData.append("crop", crop);
 
     
 
@@ -60,16 +61,38 @@ export default function UploadImage() {
     );
 
     const data = await response.json();
+    if (data.wrongCrop) {
+
+    alert(
+        `Wrong crop detected!\n\nSelected: ${data.selectedCrop}\nDetected: ${data.predictedCrop}`
+    );
+
+    setLoading(false);
+
+    return;
+}
 
     console.log(data);
 
     if (!response.ok) {
 
-      alert(data.error);
+  if (data.error === "wrong_crop") {
 
-      return;
+    alert(data.message);
 
-    }
+    setLoading(false);
+
+    return;
+
+  }
+
+  alert(data.error);
+
+  setLoading(false);
+
+  return;
+
+}
 
     navigate("/result", {
 

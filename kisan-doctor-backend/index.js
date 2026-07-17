@@ -263,6 +263,7 @@ app.post(
         fs.createReadStream(req.file.path),
         req.file.originalname
       );
+      form.append("crop", req.body.crop);
 
       const response = await axios.post(
     `${process.env.AI_URL}/predict`,

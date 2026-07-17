@@ -28,11 +28,6 @@ const crops = [
     value: "Cotton",
     name: lang === "ur" ? "کپاس" : "Cotton",
     emoji: "🧵"
-  },
-  {
-    value: "Sugarcane",
-    name: lang === "ur" ? "گنا" : "Sugarcane",
-    emoji: "🎋"
   }
 ];
   return (
@@ -60,7 +55,7 @@ const crops = [
           <div
             key={c.name}
             className={styles.card}
-            onClick={() => selectCrop(c.name)}
+            onClick={() => selectCrop(c.value)}
           >
             <div className={styles.emoji}>{c.emoji}</div>
             <div className={styles.cropName}>{c.name}</div>

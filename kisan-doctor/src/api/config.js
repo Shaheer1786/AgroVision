@@ -1,1 +1,1 @@
-export const API_URL = "http://192.168.100.249:5000";
+export const API_URL = "https://agrovision-production-1128.up.railway.app";

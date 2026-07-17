@@ -37,7 +37,7 @@ UPLOAD_FOLDER = "../uploads"
 # PREDICT FUNCTION
 # ==================================
 
-def predict_image(image_path):
+def predict_image(image_path, selected_crop=None):
 
     img = Image.open(image_path).convert("RGB")
     img = img.resize((224, 224))
@@ -79,22 +79,37 @@ def predict_image(image_path):
         np.max(prediction)
     ) * 100
 
-    disease = labels[predicted_index]
+   disease = labels[predicted_index]
 
-    print("PREDICTED INDEX:", predicted_index)
-    print("PREDICTED CLASS:", disease)
-    print("CONFIDENCE:", round(confidence, 2))
+predicted_crop = disease.split("/")[0].strip().lower()
 
-    recommendation = recommendations.get(
-        disease,
-        {
-            "treatment_en": "Treatment information not available",
-            "treatment_ur": "علاج کی معلومات دستیاب نہیں",
-            "prevention_en": "Prevention information not available",
-            "prevention_ur": "بچاؤ کی معلومات دستیاب نہیں"
+if selected_crop:
+
+    selected_crop = selected_crop.strip().lower()
+
+    if predicted_crop != selected_crop:
+
+        return {
+            "success": False,
+            "error": "wrong_crop",
+            "selectedCrop": selected_crop.title(),
+            "detectedCrop": predicted_crop.title(),
+            "message": f"You selected {selected_crop.title()}, but the uploaded image appears to be {predicted_crop.title()}."
         }
-    )
 
+print("PREDICTED INDEX:", predicted_index)
+print("PREDICTED CLASS:", disease)
+print("CONFIDENCE:", round(confidence, 2))
+
+recommendation = recommendations.get(
+    disease,
+    {
+        "treatment_en": "Treatment information not available",
+        "treatment_ur": "علاج کی معلومات دستیاب نہیں",
+        "prevention_en": "Prevention information not available",
+        "prevention_ur": "بچاؤ کی معلومات دستیاب نہیں"
+    }
+)
     return {
         "disease": disease,
         "confidence": round(confidence, 2),
@@ -147,6 +162,7 @@ def predict():
         }), 400
 
     file = request.files["image"]
+    selected_crop = request.form.get("crop")
 
     if file.filename == "":
         return jsonify({
@@ -169,9 +185,14 @@ def predict():
 
     try:
 
-        result = predict_image(file_path)
+        result = predict_image(file_path, selected_crop)
 
-        return jsonify(result)
+        result = predict_image(file_path, selected_crop)
+
+if result.get("error") == "wrong_crop":
+    return jsonify(result), 400
+
+return jsonify(result)
 
     except Exception as e:
 
