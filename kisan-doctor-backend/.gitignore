@@ -5,4 +5,6 @@ build/
 __pycache__/
 *.pyc
 uploads/
-*.db
+*.dbAI/Train/
+AI/__pycache__/
+AI/*.h5
