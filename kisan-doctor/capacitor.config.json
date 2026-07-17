@@ -1,5 +1,9 @@
 {
   "appId": "com.agrovision.app",
   "appName": "AgroVision",
-  "webDir": "dist"
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "http",
+    "cleartext": true
+  }
 }

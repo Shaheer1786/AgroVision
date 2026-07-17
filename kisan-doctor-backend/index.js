@@ -7,6 +7,8 @@ import fs from "fs";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "./models/User.js";
+import path from "path";
+import os from "os";
 
 
 import mongoose from "mongoose";
@@ -37,6 +39,15 @@ app.use(express.json());
    MongoDB Connection
 ========================== */
 
+import dns from "node:dns";
+
+dns.setServers([
+  "8.8.8.8",
+  "8.8.4.4"
+]);
+
+console.log("Node DNS:", dns.getServers());
+
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
@@ -50,6 +61,8 @@ mongoose
 /* ==========================
    Multer Upload
 ========================== */
+
+
 
 const upload = multer({
   dest: "uploads/"
@@ -230,7 +243,55 @@ app.post("/login", async (req, res) => {
 /* ==========================
    Prediction Route
 ========================== */
+app.post(
+  "/predict",
+  upload.single("image"),
+  async (req, res) => {
 
+    try {
+
+      if (!req.file) {
+        return res.status(400).json({
+          error: "No image uploaded"
+        });
+      }
+
+      const form = new FormData();
+
+      form.append(
+        "image",
+        fs.createReadStream(req.file.path),
+        req.file.originalname
+      );
+
+      const response = await axios.post(
+        "http://127.0.0.1:5001/predict",
+        form,
+        {
+          headers: form.getHeaders()
+        }
+      );
+
+      fs.unlinkSync(req.file.path);
+
+      res.json(response.data);
+
+    } catch (err) {
+
+      if (req.file && fs.existsSync(req.file.path)) {
+        fs.unlinkSync(req.file.path);
+      }
+
+      console.error(err.response?.data || err.message);
+
+      res.status(500).json({
+        error: "Prediction failed"
+      });
+
+    }
+
+  }
+);
 /* ==========================
    Get History
 /* ==========================
@@ -461,7 +522,13 @@ Keep recommendations practical, simple and farmer-friendly.
    Dashboard Stats
 ========================== */
 
+app.use((req, res, next) => {
+  console.log("REQUEST:", req.method, req.url);
+  next();
+});
+
 app.get("/stats", async (req, res) => {
+
 
   try {
 
@@ -665,72 +732,5 @@ app.get("/admin/users", async (req, res) => {
   }
 
 });
-app.post(
-  "/predict",
-  upload.single("image"),
-  async (req, res) => {
-
-    console.log("========== PREDICT HIT ==========");
-    console.log("FILE:", req.file);
-    console.log("BODY:", req.body);
-
-    try {
-
-      const formData = new FormData();
-
-      formData.append(
-        "image",
-        fs.createReadStream(req.file.path)
-      );
-
-      const response = await axios.post(
-        "http://127.0.0.1:5001/predict",
-        formData,
-        {
-          headers: formData.getHeaders()
-        }
-      );
-
-      const prediction = response.data;
-
-      console.log("AI RESPONSE:", prediction);
-
-      const savedScan = await Scan.create({
-
-        crop: prediction.disease.split("/")[0],
-
-        disease: prediction.disease,
-
-        confidence: prediction.confidence,
-
-        imageName: req.file.filename
-
-      });
-
-      console.log("Saved To MongoDB");
-
-      res.json(prediction);
-
-    } catch (err) {
-
-      console.error("Prediction Error:");
-      console.error(err);
-
-      res.status(500).json({
-        error: err.message
-      });
-
-    }
-
-  }
-);
-const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, "0.0.0.0", () => {
-  console.log(`Server running on port ${PORT}`);
-});
-
-app.get("/", (req, res) => {
-  res.send("Backend Alive");
-});
+//Predict
 

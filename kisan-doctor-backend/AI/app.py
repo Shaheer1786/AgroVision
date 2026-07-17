@@ -11,9 +11,9 @@ from recommendations import recommendations
 app = Flask(__name__)
 CORS(app)
 
-# -----------------------------------
-# Load Model
-# -----------------------------------
+# ==================================
+# LOAD MODEL
+# ==================================
 
 interpreter = tf.lite.Interpreter(
     model_path="crop_model.tflite"
@@ -27,36 +27,26 @@ output_details = interpreter.get_output_details()
 print("\n========================")
 print("MODEL LOADED")
 print("========================")
-
-print("INPUT SHAPE:")
-print(input_details[0]["shape"])
-
-print("OUTPUT SHAPE:")
-print(output_details[0]["shape"])
-
+print("INPUT SHAPE:", input_details[0]["shape"])
+print("OUTPUT SHAPE:", output_details[0]["shape"])
 print("========================\n")
 
 UPLOAD_FOLDER = "../uploads"
 
-# -----------------------------------
-# Predict Function
-# -----------------------------------
+# ==================================
+# PREDICT FUNCTION
+# ==================================
 
 def predict_image(image_path):
 
-    # Load image
     img = Image.open(image_path).convert("RGB")
-
-    # Resize
     img = img.resize((224, 224))
 
-    # Normalize
     img_array = np.array(
         img,
         dtype=np.float32
     ) / 255.0
 
-    # Add batch dimension
     img_array = np.expand_dims(
         img_array,
         axis=0
@@ -65,15 +55,13 @@ def predict_image(image_path):
     print("\n========================")
     print("IMAGE SHAPE")
     print(img_array.shape)
-    print("========================\n")
+    print("========================")
 
-    # Set input tensor
     interpreter.set_tensor(
         input_details[0]["index"],
         img_array
     )
 
-    # Run inference
     interpreter.invoke()
 
     prediction = interpreter.get_tensor(
@@ -83,28 +71,19 @@ def predict_image(image_path):
     print("\n========================")
     print("RAW PREDICTION")
     print(prediction)
-    print("========================\n")
+    print("========================")
 
-    predicted_index = np.argmax(
-        prediction
-    )
+    predicted_index = int(np.argmax(prediction))
 
     confidence = float(
         np.max(prediction)
     ) * 100
 
-    disease = labels[
-        predicted_index
-    ]
+    disease = labels[predicted_index]
 
-    print("PREDICTED INDEX:")
-    print(predicted_index)
-
-    print("PREDICTED CLASS:")
-    print(disease)
-
-    print("CONFIDENCE:")
-    print(confidence)
+    print("PREDICTED INDEX:", predicted_index)
+    print("PREDICTED CLASS:", disease)
+    print("CONFIDENCE:", round(confidence, 2))
 
     recommendation = recommendations.get(
         disease,
@@ -118,10 +97,7 @@ def predict_image(image_path):
 
     return {
         "disease": disease,
-        "confidence": round(
-            confidence,
-            2
-        ),
+        "confidence": round(confidence, 2),
 
         "treatment_en":
             recommendation.get(
@@ -147,24 +123,35 @@ def predict_image(image_path):
                 "بچاؤ کی معلومات دستیاب نہیں"
             )
     }
-# -----------------------------------
-# API Route
-# -----------------------------------
 
-@app.route(
-    "/predict",
-    methods=["POST"]
-)
+# ==================================
+# HOME
+# ==================================
+
+@app.route("/")
+def home():
+    return "AgroVision AI Backend Running"
+
+# ==================================
+# PREDICT API
+# ==================================
+
+@app.route("/predict", methods=["POST"])
 def predict():
 
-    if "image" not in request.files:
+    print("\n========== FLASK PREDICT ==========")
 
+    if "image" not in request.files:
         return jsonify({
-            "error":
-            "No image uploaded"
+            "error": "No image uploaded"
         }), 400
 
     file = request.files["image"]
+
+    if file.filename == "":
+        return jsonify({
+            "error": "No filename"
+        }), 400
 
     os.makedirs(
         UPLOAD_FOLDER,
@@ -178,21 +165,43 @@ def predict():
 
     file.save(file_path)
 
-    result = predict_image(
-        file_path
-    )
+    print("Saved:", file_path)
 
-    return jsonify(result)
+    try:
 
-# -----------------------------------
-# Run App
-# -----------------------------------
-import os
+        result = predict_image(file_path)
+
+        return jsonify(result)
+
+    except Exception as e:
+
+        print("\nPrediction Error:")
+        print(e)
+
+        return jsonify({
+            "error": str(e)
+        }), 500
+
+    finally:
+
+        if os.path.exists(file_path):
+            os.remove(file_path)
+            print("Deleted:", file_path)
+
+# ==================================
+# RUN SERVER
+# ==================================
 
 if __name__ == "__main__":
+
+    print("\n==============================")
+    print("AGROVISION AI SERVER STARTED")
+    print("==============================")
+    print("http://127.0.0.1:5001")
+    print("==============================\n")
+
     app.run(
         host="0.0.0.0",
-        port=int(os.environ.get("PORT", 5001))
+        port=int(os.environ.get("PORT", 5001)),
+        debug=True
     )
-
-    

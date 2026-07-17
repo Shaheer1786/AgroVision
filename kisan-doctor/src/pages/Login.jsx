@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "./Auth.module.css";
 import { useTranslation } from "../contexts/LanguageProvider";
 import { API_URL } from "../api/config";
+import { CapacitorHttp } from "@capacitor/core";
 
 export default function Login() {
 
@@ -50,86 +51,37 @@ export default function Login() {
     return;
   }
 
-  try {
-
-    alert(API_URL);
-console.log("API URL:", API_URL);
-   const response = await fetch(
-  `${API_URL}/login`,
-  {
+ try {
+  const response = await fetch(`${API_URL}/login`, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
       email,
-      password
-    })
-  }
-);
+      password,
+    }),
+  });
 
-const data = await response.json();
+  const data = await response.json();
 
-console.log("LOGIN RESPONSE:", data);
+  console.log(data);
+  alert(JSON.stringify(data));
 
-if (!response.ok) {
-  setError(data.error || "Login failed");
-  return;
-}
-
-console.log("USER:", data.user);
-console.log("ROLE:", data.user.role);
-   
-    if (!response.ok) {
-
-      setError(
-        data.error ||
-        "Login failed"
-      );
-
-      return;
-    }
-
-    localStorage.setItem(
-  "token",
-  data.token
-);
-
-localStorage.setItem(
-  "user",
-  JSON.stringify(data.user)
-);
-
-localStorage.setItem(
-  "role",
-  data.user.role
-);
-
-if (
-  data.user.role === "admin"
-) {
-
-  nav("/admin");
-
-}
-else {
-
-  nav("/dashboard");
-
-}
-  } catch (err) {
-
-    console.error(err);
-
-    setError(
-      lang === "ur"
-        ? "سرور سے رابطہ نہیں ہو سکا"
-        : "Server connection failed"
-    );
-
+  if (!response.ok) {
+    setError(data.error || "Login failed");
+    return;
   }
 
-}
+  localStorage.setItem("token", data.token);
+  localStorage.setItem("user", JSON.stringify(data.user));
+  localStorage.setItem("role", data.user.role);
+
+  nav(data.user.role === "admin" ? "/admin" : "/dashboard");
+} catch (err) {
+  console.error(err);
+  alert(err.message);
+}}
 
   return (
     <div
