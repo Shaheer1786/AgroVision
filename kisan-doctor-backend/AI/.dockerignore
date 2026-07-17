@@ -1,0 +1,4 @@
+Train
+__pycache__
+*.pyc
+app.db
